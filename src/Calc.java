@@ -2,47 +2,47 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Calc {
-    Stack<Integer> digits=new Stack<>();
+    Stack<Double> digits=new Stack<>();
 
     public Calc() {
     }
 
-    public String doMath(String str)
+    public double doMath(String str)
     {
         StringTokenizer tokenizer=new StringTokenizer(str," ");
         while (tokenizer.hasMoreTokens())
         {
-            int a=0,b=0;
+            double a=0,b=0;
             String symbol=tokenizer.nextToken();
             if (symbol.matches("[0-9]+"))
             {
-                digits.push(Integer.parseInt(symbol));
+                digits.push(Double.parseDouble(symbol));
             }
             else
             {
                 if (symbol.matches("[-+*/]"))
                 {
                     if (!digits.isEmpty()) {
-                        a = digits.pop();
+                        b = digits.pop();
                         if (!digits.isEmpty()) {
-                            b = digits.pop();
+                            a = digits.pop();
                         }
                         else
                         {
                             System.out.println("Error! Stack is empty!");
-                            return null;
+                             return -1;
                         }
                     }
                     else
                     {
                         System.out.println("Error! Stack is empty!");
-                        return null;
+                        return -1;
                     }
                 }
                 else
                 {
                     System.out.println("Wrong symbol for calculator");
-                    return null;
+                    return -1;
                 }
             }
             switch (symbol)
@@ -72,6 +72,6 @@ public class Calc {
             }
         }
 
-        return digits.pop().toString();
+        return digits.pop();
     }
 }

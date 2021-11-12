@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Formatter;
 
 public class Main extends JFrame {
     JButton b=new JButton("Calculate");
@@ -19,7 +20,7 @@ public class Main extends JFrame {
         add(l);
         b.setSize(100,50);
         area.setSize(400,20);
-        l.setSize(200,20);
+        l.setSize(300,20);
         b.setFont(f);
         area.setFont(f);
         l.setFont(f);
@@ -35,13 +36,20 @@ public class Main extends JFrame {
             {
 
                 Calc calc=new Calc();
-                if ( calc.doMath(area.getText())!=null)
+                if ( calc.doMath(area.getText())!=-1)
                 {
-                    l.setText("Result: "+calc.doMath(area.getText()));
+                    Formatter f=new Formatter();
+                    if (calc.doMath(area.getText()) % 1 == 0) {
+                       f.format("%.0f",calc.doMath(area.getText()));
+                    }
+                    else {
+                        f.format("%.3f", calc.doMath(area.getText()));
+                    }
+                    l.setText("Result: "+f.toString());
                 }
                 else
                 {
-                    l.setText("Error wrong type input or Stack is empty");
+                    l.setText("Error: wrong type input or Stack is empty");
                 }
 
             }
@@ -50,6 +58,10 @@ public class Main extends JFrame {
     public static void main(String[] args)
     {
         new Main();
+//        2 3 +
+//        2 3 * 4 5 * +
+//        2 3 4 5 6 * + - /
+
 
     }
 }
